@@ -33,7 +33,8 @@ be true"""
 if __name__ == '__main__':
     PORT = 4    # D4
 
-setText("Lab 2-Sensors\nAlexander Nemzek") #splash screen
+setRGB(0, 255, 255) #sets the screen to be cyan
+setText("Lab 2 - Sensors\nAlexander Nemzek") #splash screen
 time.sleep(1.0)
 
 grovepi.analogRead(2) #setting the A2 port to read from the ADC rotary encoder
@@ -45,16 +46,13 @@ while True:
     #sleep for a reasonable time of 200ms between each iteration.
     time.sleep(0.2)
 
-    distance = grovepi.ultrasonicRead(PORT) #poll distance from ultrasonic sensor
-     
-    print(grovepi.ultrasonicRead(PORT)) #print read to terminal
     
+    distance = grovepi.ultrasonicRead(PORT) #poll distance from ultrasonic sensor
     threshold = grovepi.analogRead(2) #poll rotary encoder input
-    print(threshold) #print read to terminal
 
     if distance < threshold: #object sensed is closer than threshold
-        setText(str(threshold) + " OBJ PRES\n" + str(distance))
+        setRGB(255, 0, 0) #sets the screen to be red
+        setText_norefresh(str(threshold) + "cm OBJ PRES  \n" + str(distance) + "cm")
     else:
-        setText(str(threshold) + "\n" + str(distance)) #otherwise, just prints the values
-
-        
+        setRGB(0, 255, 0) #sets the screen to be green
+        setText_norefresh(str(threshold) + "cm           \n" + str(distance) + "cm") #otherwise, just prints the values
