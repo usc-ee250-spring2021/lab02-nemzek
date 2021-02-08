@@ -23,6 +23,7 @@ sys.path.append('../../Software/Python/')
 sys.path.append('../../Software/Python/grove_rgb_lcd')
 
 import grovepi
+
 from grove_rgb_lcd import *
 
 
@@ -32,15 +33,28 @@ be true"""
 if __name__ == '__main__':
     PORT = 4    # D4
 
+setText("Lab 2-Sensors\nAlexander Nemzek") #splash screen
+time.sleep(1.0)
+
 grovepi.analogRead(2) #setting the A2 port to read from the ADC rotary encoder
 
+
 while True:
-     #So we do not poll the sensors too quickly which may introduce noise,
-     #sleep for a reasonable time of 200ms between each iteration.
-     time.sleep(0.2)
 
-     print(grovepi.ultrasonicRead(PORT))
+    #So we do not poll the sensors too quickly which may introduce noise,
+    #sleep for a reasonable time of 200ms between each iteration.
+    time.sleep(0.2)
 
-     setText("Hello world\nLCD test")
+    distance = grovepi.ultrasonicRead(PORT) #poll distance from ultrasonic sensor
+     
+    print(grovepi.ultrasonicRead(PORT)) #print read to terminal
+    
+    threshold = grovepi.analogRead(2) #poll rotary encoder input
+    print(threshold) #print read to terminal
+
+    if distance < threshold: #object sensed is closer than threshold
+        setText(str(threshold) + " OBJ PRES\n" + str(distance))
+    else:
+        setText(str(threshold) + "\n" + str(distance)) #otherwise, just prints the values
 
         
