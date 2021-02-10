@@ -24,6 +24,7 @@ sys.path.append('../../Software/Python/')
 # This append is to support importing the LCD library.
 sys.path.append('../../Software/Python/grove_rgb_lcd')
 
+#import extra libraries required to support the functions included
 import grovepi`
 from grove_rgb_lcd import *
 
@@ -36,9 +37,7 @@ if __name__ == '__main__':
 
 setRGB(0, 255, 255) #sets the screen to be cyan
 setText("Lab 2 - Sensors\nAlexander Nemzek") #splash screen
-time.sleep(1.0)
-
-grovepi.analogRead(2) #setting the A2 port to read from the ADC rotary encoder
+time.sleep(2.0) #pauses 2 seconds before entering program
 
 
 while True:
@@ -47,7 +46,6 @@ while True:
     #sleep for a reasonable time of 200ms between each iteration.
     time.sleep(0.2)
 
-    
     distance = grovepi.ultrasonicRead(PORT) #poll distance from ultrasonic sensor
     threshold = grovepi.analogRead(2) #poll rotary encoder input
 
