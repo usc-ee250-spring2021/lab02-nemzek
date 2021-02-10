@@ -1,8 +1,10 @@
 """ EE 250L Lab 02: GrovePi Sensors
 
 List team members here.
+n/a - worked alone
 
 Insert Github repository link here.
+https://github.com/usc-ee250-spring2021/lab02-nemzek.git
 """
 
 """python3 interpreters in Ubuntu (and other linux distros) will look in a 
@@ -22,8 +24,7 @@ sys.path.append('../../Software/Python/')
 # This append is to support importing the LCD library.
 sys.path.append('../../Software/Python/grove_rgb_lcd')
 
-import grovepi
-
+import grovepi`
 from grove_rgb_lcd import *
 
 
