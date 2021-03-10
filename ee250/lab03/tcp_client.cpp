@@ -16,13 +16,14 @@ int main(int argc, char const *argv[])
 	char socket_read_buffer[1024];
 	
 	// TODO: Fill out the server ip and port
-	std::string server_ip = "";
-	std::string server_port = "";
+	std::string server_ip = "165.227.201.206";
+	std::string server_port = argv[1];
 
 	int opt = 1;
 	int client_fd = -1;
 
 	// TODO: Create a TCP socket()
+	client_fd = socket(AF_INET, SOCK_STREAM, 0);
 
 	// Enable reusing address and port
 	if (setsockopt(client_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt, sizeof(opt))) { 
@@ -44,17 +45,33 @@ int main(int argc, char const *argv[])
 	getaddrinfo(server_ip.c_str(), server_port.c_str(), &hints, &server_addr);
 
 	// TODO: Connect() to the aws server (hint: you'll need to use server_addr)
+	int con = connect(client_fd, server_addr->ai_addr, server_addr->ai_addrlen);
+	
+	if(con != 0)
+	{
+		std::cerr << "Unsuccessful connection." << std::endl;
+		return con; 
+	}
+	
+	// TODO: Retrieve user input
+	// recv(client_fd, socket_read_buffer, sizeof(socket_read_buffer), 0);
+	std::string input;
+	std::cin >> input;
 
-	// TODO: Retreive user input
+ 	char* input_buf = new char [input.length()+1];
+ 	std::strcpy (input_buf, input.c_str());
+	input_buf[input.length()+1] = '\0';
 
 	// TODO: Send() the user input to the aws server
+	send(client_fd, input_buf, input.length(), 0);
 
-	// TODO: Recieve any messages from the aws server and print it here. Don't forget to make sure the string is null terminated!
+	// TODO: Receive any messages from the aws server and print it here. Don't forget to make sure the string is null terminated!
 	int len = recv(client_fd, socket_read_buffer, sizeof(socket_read_buffer), 0);
 	socket_read_buffer[len] = '\0';
 	printf("%s\n", socket_read_buffer);
 	
 	// TODO: Close() the socket
+	close(client_fd);
 
 	return 0; 
 } 
