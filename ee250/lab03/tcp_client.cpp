@@ -16,7 +16,7 @@ int main(int argc, char const *argv[])
 	char socket_read_buffer[1024];
 	
 	// TODO: Fill out the server ip and port
-	std::string server_ip = "165.227.201.206";
+	std::string server_ip = "52.183.57.234";
 	std::string server_port = argv[1];
 
 	int opt = 1;
@@ -56,7 +56,9 @@ int main(int argc, char const *argv[])
 	// TODO: Retrieve user input
 	// recv(client_fd, socket_read_buffer, sizeof(socket_read_buffer), 0);
 	std::string input;
-	std::cin >> input;
+	while(std::cin >> input);
+
+	// printf("Input len: %d\n", input.length() );
 
  	char* input_buf = new char [input.length()+1];
  	std::strcpy (input_buf, input.c_str());
